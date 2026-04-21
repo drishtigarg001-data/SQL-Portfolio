@@ -15,13 +15,13 @@ covering real-world scenarios and interview problems.
 
 | # | Topic | Status |
 |---|-------|--------|
-| 1 | JOIN Logic (All Types) | ✅ Complete |
-| 2 | Aggregation Deep Thinking | ✅ Complete |
-| 3 | Subqueries & CTEs | 🔄 In Progress |
-| 4 | Window Functions | ⏳ Coming Soon |
-| 5 | Date & Time Logic | ⏳ Coming Soon |
-| 6 | Data Quality & NULL Handling | ⏳ Coming Soon |
-| 7 | Business Case Questions | ⏳ Coming Soon |
+| 1 | JOIN Logic (All Types) |  Complete |
+| 2 | Aggregation Deep Thinking |  Complete |
+| 3 | Subqueries & CTEs |  In Progress |
+| 4 | Window Functions |  Coming Soon |
+| 5 | Date & Time Logic |  Coming Soon |
+| 6 | Data Quality & NULL Handling |  Coming Soon |
+| 7 | Business Case Questions |  Coming Soon |
 
 ## Key Skills Demonstrated
 - Complex multi-table JOINs
@@ -42,7 +42,7 @@ SQL-Portfolio/
 ├── 06_Business_Cases/
 └── README.md
 
-## 🎯 Problem Solving Approach
+##  Problem Solving Approach
 1. Understand the business requirement
 2. Identify edge cases (NULLs, duplicates, ties)
 3. Write clean, readable SQL with CTEs
