@@ -1,4 +1,4 @@
-# 📊 SQL Portfolio
+# SQL Portfolio
 
 ## About Me
 Data Engineer with 5 years of experience in SQL,
@@ -6,12 +6,12 @@ data pipelines, and analytics.
 This repository contains my structured SQL practice
 covering real-world scenarios and interview problems.
 
-## 🛠️ Tools & Technologies
+## Tools & Technologies
 - PostgreSQL
 - BigQuery
 - SQL Server
 
-## 📚 Topics Covered
+## Topics Covered
 
 | # | Topic | Status |
 |---|-------|--------|
@@ -23,7 +23,7 @@ covering real-world scenarios and interview problems.
 | 6 | Data Quality & NULL Handling | ⏳ Coming Soon |
 | 7 | Business Case Questions | ⏳ Coming Soon |
 
-## 💡 Key Skills Demonstrated
+## Key Skills Demonstrated
 - Complex multi-table JOINs
 - Advanced aggregation with CASE WHEN
 - CTE chaining for complex transformations
@@ -32,7 +32,7 @@ covering real-world scenarios and interview problems.
 - Duplicate detection and handling
 - Window functions for analytics
 
-## 📁 Repository Structure
+## Repository Structure
 SQL-Portfolio/
 ├── 01_Joins/
 ├── 02_Aggregation/
