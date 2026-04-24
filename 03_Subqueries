@@ -1,0 +1,79 @@
+# 🔍 Subqueries & CTEs
+
+## Topics Covered
+
+| # | Topic | Status |
+|---|-------|--------|
+| 1 | Scalar Subqueries | ✅ Complete |
+| 2 | Correlated Subqueries | ✅ Complete |
+| 3 | Subquery in WHERE/FROM/SELECT | ✅ Complete |
+| 4 | EXISTS vs IN | ✅ Complete |
+| 5 | Classic Problems | ✅ Complete |
+| 6 | CTE vs Subquery vs Derived Table | 🔄 In Progress |
+| 7 | Multiple CTEs Chaining | ⏳ Coming Soon |
+| 8 | Subquery vs JOIN Performance | ⏳ Coming Soon |
+| 9 | Recursive CTE | ⏳ Coming Soon |
+
+## Key Concepts
+
+### When to Use What
+| Comparison Type | Use |
+|----------------|-----|
+| Row vs Scalar | Non-Correlated Subquery |
+| Row vs Row | Correlated Subquery |
+| Row vs Group | Correlated Subquery |
+| Group vs Scalar | HAVING + Scalar Subquery |
+| Group vs Group | CTE + WHERE |
+
+### Scalar Subquery
+- Returns single value
+- Runs ONCE
+- Use in SELECT, WHERE, HAVING
+- Example: Company average, Global max
+
+### Correlated Subquery
+- References outer query
+- Runs N times (once per row)
+- Use for row level comparisons
+- Example: Dept average per employee
+
+### EXISTS vs IN
+- EXISTS → NULL safe, short circuits ✅
+- IN → NULL trap! ⚠️
+- NOT EXISTS → always preferred over NOT IN
+
+### ALL vs ANY
+- salary > ALL (subquery) → more than maximum
+- salary > ANY (subquery) → more than minimum
+
+### Important Rules
+1. Subquery in WHERE/SELECT → single column only!
+2. Subquery in FROM → multiple columns okay, alias required!
+3. Correlated → always use table aliases (e1, e2)
+4. PARTITION BY → only for group wise ranking
+5. No PARTITION BY → for overall ranking
+
+## Important Notes
+
+### Scalar vs Correlated vs CTE Together
+```sql
+-- Real world: All three used together
+WITH dept_avg AS (          -- CTE (Group level)
+  SELECT dept, AVG(salary) AS dept_average
+  FROM employees
+  GROUP BY dept
+)
+SELECT
+  name,
+  salary,
+  (SELECT AVG(salary) FROM employees) AS company_avg,  -- Scalar
+  da.dept_average                                        -- CTE value
+FROM employees e
+JOIN dept_avg da ON e.dept = da.dept
+WHERE salary > (                                         -- Correlated
+  SELECT AVG(salary) FROM employees e2
+  WHERE e2.dept = e.dept
+);
+```
+
+### Row vs Row/Scalar/Group Decision
