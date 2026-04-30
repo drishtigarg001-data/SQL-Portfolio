@@ -89,3 +89,24 @@ SELECT DISTINCT c.customer_name
 FROM Customers c
 JOIN Orders o 
     ON c.customer_id = o.customer_id;
+
+### Problem:
+-If a customer has 100 orders
+-The query processes all 100 rows
+-Then removes duplicates using DISTINCT
+
+➡️ Unnecessary computation and slower performance
+
+### Better EXISTS Approach
+-- Returns each customer only once
+SELECT c.customer_name
+FROM Customers c
+WHERE EXISTS (
+    SELECT 1 
+    FROM Orders o 
+    WHERE o.customer_id = c.customer_id
+);
+###🚀 Why it's better:
+-Stops searching after the first match
+-No duplicate rows generated
+-More efficient for large datasets
