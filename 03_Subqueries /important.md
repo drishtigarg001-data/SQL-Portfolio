@@ -97,6 +97,9 @@ JOIN Orders o
 
 ➡️ Unnecessary computation and slower performance
 
+---
+
+
 ### Better EXISTS Approach
 -- Returns each customer only once
 SELECT c.customer_name
