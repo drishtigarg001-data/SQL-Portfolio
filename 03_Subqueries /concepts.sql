@@ -430,3 +430,36 @@ WHERE salary > (
 -- RULE 6: CTE can reference itself
 -- Multiple CTEs → single WITH, comma separated!
 -- WITH cte1 AS (...), cte2 AS (...) SELECT...
+
+-- RULE 7: Single WITH keyword for multiple CTEs
+-- WITH cte1 AS (...), cte2 AS (...) SELECT...
+-- Never: WITH cte1 AS (...), WITH cte2 AS (...)
+
+-- RULE 8: No comma after last CTE
+-- WITH cte1 AS (...), cte2 AS (...)  ← no comma!
+-- SELECT * FROM cte2;
+
+-- RULE 9: Later CTE can reference earlier
+-- cte2 CAN use cte1 ✅
+-- cte1 CANNOT use cte2 ❌
+
+-- RULE 10: Recursive CTE needs loop prevention
+-- Add WHERE level < N in recursive member!
+
+-- RULE 11: CTE materialization
+-- PostgreSQL 12+ → auto inlined
+-- MATERIALIZED → force store in memory
+-- Good when CTE used multiple times!
+
+-- RULE 12: EXISTS short circuits
+-- Stops at first match → faster than IN!
+-- Always prefer EXISTS for existence checks!
+
+-- RULE 13: ALL vs ANY
+-- > ALL → more than maximum value
+-- > ANY → more than minimum value
+
+-- RULE 14: Performance priority
+-- Filter early → EXISTS over IN →
+-- CTE over correlated → avoid SELECT * →
+-- avoid functions on indexed columns!
