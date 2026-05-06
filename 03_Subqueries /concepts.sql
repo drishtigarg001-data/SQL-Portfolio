@@ -404,6 +404,196 @@ WHERE salary > (
 );
 
 -- =============================================
+-- 11. CTE vs SUBQUERY vs DERIVED TABLE
+-- =============================================
+
+-- Derived Table (subquery in FROM):
+SELECT dept, avg_sal
+FROM (
+  SELECT dept, AVG(salary) AS avg_sal
+  FROM employees GROUP BY dept
+) AS dept_summary          -- alias REQUIRED!
+WHERE avg_sal > 60000;
+
+-- CTE (same result, more readable):
+WITH dept_summary AS (
+  SELECT dept, AVG(salary) AS avg_sal
+  FROM employees GROUP BY dept
+)
+SELECT dept, avg_sal
+FROM dept_summary
+WHERE avg_sal > 60000;
+
+-- WHEN TO USE:
+-- CTE → multi-step logic, reusable, readable
+-- Subquery → simple one-time, EXISTS checks
+-- Derived Table → quick aggregation before JOIN
+
+-- =============================================
+-- 12. MULTIPLE CTEs CHAINING
+-- =============================================
+
+-- RULES:
+-- 1. Only ONE WITH keyword!
+-- 2. CTEs separated by commas!
+-- 3. Later CTE CAN reference earlier CTE!
+-- 4. Earlier CTE CANNOT reference later CTE!
+-- 5. No comma after LAST CTE!
+
+-- ✅ Correct:
+WITH cte1 AS (
+  SELECT dept, AVG(salary) AS avg_sal
+  FROM employees GROUP BY dept
+),                         -- comma!
+cte2 AS (                  -- can use cte1!
+  SELECT * FROM cte1
+  WHERE avg_sal > 60000
+),                         -- comma!
+cte3 AS (                  -- can use cte1 and cte2!
+  SELECT c.*, e.name
+  FROM cte2 c
+  JOIN employees e ON c.dept = e.dept
+)                          -- NO comma before SELECT!
+SELECT * FROM cte3;
+
+-- =============================================
+-- 13. RECURSIVE CTE
+-- =============================================
+
+-- Use for: hierarchy, tree structure, sequences
+-- Two parts: Anchor Member + Recursive Member
+
+WITH RECURSIVE emp_hierarchy AS (
+  -- Anchor Member: starting point (runs ONCE)
+  SELECT emp_id, name, manager_id, 1 AS level
+  FROM employees
+  WHERE manager_id IS NULL  -- CEO!
+
+  UNION ALL
+
+  -- Recursive Member: references CTE itself
+  SELECT e.emp_id, e.name, e.manager_id, eh.level + 1
+  FROM employees e
+  JOIN emp_hierarchy eh ON e.manager_id = eh.emp_id
+  WHERE eh.level < 10      -- infinite loop prevention!
+)
+SELECT * FROM emp_hierarchy ORDER BY level;
+
+-- Infinite loop prevention:
+-- → Add WHERE level < N in recursive member!
+-- → PostgreSQL 14+: CYCLE keyword available
+
+-- =============================================
+-- 14. CTE vs SUBQUERY PERFORMANCE
+-- =============================================
+
+-- MYTH: "Subquery always slower than CTE"
+-- REALITY: Depends on use case!
+
+-- PostgreSQL 12+:
+-- → CTE automatically inlined by optimizer
+-- → Performance difference = negligible!
+-- → Use MATERIALIZED keyword to force store
+
+-- CTE BETTER when:
+-- → Multiple times use (calculated once, reused!)
+-- → Complex multi-step logic
+-- → Production/team readable code
+
+-- SUBQUERY BETTER when:
+-- → Simple one-time use
+-- → EXISTS/NOT EXISTS checks
+-- → Scalar value filter
+
+-- Force materialization:
+WITH summary AS MATERIALIZED (
+  SELECT rep_id, SUM(amount) AS total
+  FROM sales GROUP BY rep_id
+)
+SELECT * FROM summary WHERE total > 15000
+UNION ALL
+SELECT * FROM summary WHERE total < 5000;
+-- Calculated ONCE → used twice! ✅
+
+-- =============================================
+-- 15. CTE vs TEMP TABLE vs VIEW
+-- =============================================
+
+-- CTE → Lives for ONE query only
+WITH summary AS (SELECT ...)
+SELECT * FROM summary;
+
+-- Temp Table → Lives for entire SESSION
+CREATE TEMP TABLE temp_summary AS
+SELECT dept, AVG(salary) AS avg_sal FROM employees GROUP BY dept;
+-- Can add indexes! Can use in multiple queries!
+
+-- View → Lives PERMANENTLY
+CREATE VIEW dept_summary AS
+SELECT dept, AVG(salary) AS avg_sal FROM employees GROUP BY dept;
+-- Always fresh data! Reusable by everyone!
+
+-- Materialized View → Permanent + Physical data stored
+CREATE MATERIALIZED VIEW dept_summary AS
+SELECT dept, AVG(salary) AS avg_sal FROM employees GROUP BY dept;
+-- Fast queries! But needs REFRESH! Stale data risk!
+REFRESH MATERIALIZED VIEW dept_summary;
+
+-- DECISION:
+-- CTE        → Single query complex logic
+-- Temp Table → ETL pipeline, large data, multiple queries
+-- View       → Permanent business reporting layer
+-- Mat. View  → Performance critical, refresh acceptable
+
+-- =============================================
+-- 16. SUBQUERY vs JOIN PERFORMANCE
+-- =============================================
+
+-- EXISTS vs JOIN for existence check:
+-- EXISTS → short circuits → FASTER! ✅
+-- JOIN + DISTINCT → scans all → SLOWER! ❌
+
+-- Correlated vs JOIN for aggregation:
+-- Correlated → N executions → SLOWER on large data!
+-- JOIN + GROUP BY → one scan → FASTER! ✅
+
+-- REPLACE correlated with CTE/JOIN:
+-- ❌ Slow correlated:
+WHERE salary > (SELECT AVG(salary) FROM employees
+                WHERE dept = e1.dept)
+
+-- ✅ Fast CTE:
+WITH dept_avg AS (
+  SELECT dept, AVG(salary) AS avg_sal
+  FROM employees GROUP BY dept
+)
+...WHERE salary > dept_avg.avg_sal
+
+-- =============================================
+-- 17. PERFORMANCE IMPLICATIONS — KEY RULES
+-- =============================================
+
+-- Rule 1: Filter EARLY
+-- Push filters inside CTEs and subqueries!
+-- ❌ Filter after: SELECT * FROM (SELECT * FROM orders) WHERE status='completed'
+-- ✅ Filter inside: SELECT * FROM (SELECT * FROM orders WHERE status='completed')
+
+-- Rule 2: EXISTS > IN for large tables
+-- EXISTS short circuits on first match!
+-- IN scans all matches!
+
+-- Rule 3: Avoid correlated on large data
+-- N rows = N executions!
+-- Replace with JOIN or CTE!
+
+-- Rule 4: Avoid SELECT *
+-- Only fetch columns you need!
+
+-- Rule 5: Avoid functions on indexed columns in WHERE
+-- ❌ EXTRACT(YEAR FROM order_date) = 2023
+-- ✅ order_date >= '2023-01-01' AND order_date < '2024-01-01'
+
+-- =============================================
 -- KEY RULES TO REMEMBER
 -- =============================================
 
