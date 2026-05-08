@@ -34,12 +34,19 @@ covering real-world scenarios and interview problems.
 
 ## Repository Structure
 SQL-Portfolio/
+
 ├── 01_Joins/
+
 ├── 02_Aggregation/
+
 ├── 03_Subqueries/
+
 ├── 04_Window_Functions/
+
 ├── 05_Date_Time/
+
 ├── 06_Business_Cases/
+
 └── README.md
 
 ##  Problem Solving Approach
