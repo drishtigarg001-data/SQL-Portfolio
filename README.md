@@ -17,7 +17,7 @@ covering real-world scenarios and interview problems.
 |---|-------|--------|
 | 1 | JOIN Logic (All Types) |  Complete |
 | 2 | Aggregation Deep Thinking |  Complete |
-| 3 | Subqueries & CTEs |  Complete |
+| 3 | Subqueries & CTEs | Complete |
 | 4 | Window Functions |  In Progress |
 | 5 | Date & Time Logic |  Coming Soon |
 | 6 | Data Quality & NULL Handling |  Coming Soon |
