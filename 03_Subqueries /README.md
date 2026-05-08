@@ -34,4 +34,6 @@
 
 ## Files
 - `concepts.sql` - Theory and key patterns
-- `practice.sql` - Questions + Answers + Corrections
+- `practice.sql` - Questions + Datasets + Hints
+- `solutions.sql` - Solutions + Key points
+- `important_notes.sql` - Interview traps + Senior sentences
