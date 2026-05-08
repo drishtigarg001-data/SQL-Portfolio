@@ -7,13 +7,13 @@
 |---|-------|--------|
 | 1 | GROUP BY vs Window Functions | ✅ Complete |
 | 2 | PARTITION BY vs GROUP BY | ✅ Complete |
-| 3 | ROW_NUMBER() | ⏳ Pending |
-| 4 | RANK() | ⏳ Pending |
-| 5 | DENSE_RANK() | ⏳ Pending |
-| 6 | NTILE() | ⏳ Pending |
-| 7 | Execution Order | ⏳ Pending |
-| 8 | Why Window not in WHERE | ⏳ Pending |
-| 9 | Top-N per group | ⏳ Pending |
+| 3 | ROW_NUMBER() | ✅ Complete |
+| 4 | RANK() | ✅ Complete |
+| 5 | DENSE_RANK() | ✅ Complete |
+| 6 | NTILE() | ✅ Complete |
+| 7 | Execution Order | ✅ Complete |
+| 8 | Why Window not in WHERE | ✅ Complete |
+| 9 | Top-N per group | ✅ Complete |
 | 10 | Deduplication using window | ⏳ Pending |
 | 11 | First/Last per group | ⏳ Pending |
 | 12 | LAG() | ⏳ Pending |
