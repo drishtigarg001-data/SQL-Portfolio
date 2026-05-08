@@ -1,42 +1,72 @@
-# Window Functions
+# 🪟 Window Functions
 
 ## Topics Covered
-- ROW_NUMBER vs RANK vs DENSE_RANK
-- PARTITION BY vs GROUP BY
-- Top N per group
-- Running totals
-- Moving averages
-- LAG / LEAD
-- Finding gaps & islands
-- De-duplication using window functions
-- Aggregate vs Window functions
+
+### 🔴 Must Have
+| # | Topic | Status |
+|---|-------|--------|
+| 1 | GROUP BY vs Window Functions | ✅ Complete |
+| 2 | PARTITION BY vs GROUP BY | ✅ Complete |
+| 3 | ROW_NUMBER() | ⏳ Pending |
+| 4 | RANK() | ⏳ Pending |
+| 5 | DENSE_RANK() | ⏳ Pending |
+| 6 | NTILE() | ⏳ Pending |
+| 7 | Execution Order | ⏳ Pending |
+| 8 | Why Window not in WHERE | ⏳ Pending |
+| 9 | Top-N per group | ⏳ Pending |
+| 10 | Deduplication using window | ⏳ Pending |
+| 11 | First/Last per group | ⏳ Pending |
+| 12 | LAG() | ⏳ Pending |
+| 13 | LEAD() | ⏳ Pending |
+| 14 | FIRST_VALUE() | ⏳ Pending |
+| 15 | LAST_VALUE() + Trap | ⏳ Pending |
+| 16 | Running Total | ⏳ Pending |
+| 17 | Moving Average | ⏳ Pending |
+| 18 | Gaps & Islands | ⏳ Pending |
+
+### 🟡 Important
+| # | Topic | Status |
+|---|-------|--------|
+| 19 | Window Frames (ROWS vs RANGE) | ⏳ Pending |
+| 20 | Change Detection | ⏳ Pending |
+| 21 | Sessionization | ⏳ Pending |
+| 22 | Window vs Subquery vs CTE | ⏳ Pending |
+| 23 | NTH_VALUE() | ⏳ Pending |
+| 24 | PERCENT_RANK / CUME_DIST | ⏳ Pending |
 
 ## Key Concepts
-- Window functions retain all rows — no collapsing!
+- Window functions RETAIN all rows — no collapsing!
 - PARTITION BY = group wise calculation
-- No PARTITION BY = overall calculation
-- ORDER BY inside OVER() = running calculation
-- GROUP BY collapses rows, OVER() does not
-
-## PARTITION BY Rules
-- Group wise ranking → PARTITION BY column
-- Overall ranking → No PARTITION BY
-- Running total per group → PARTITION BY group column
-- Running total overall → No PARTITION BY
+- No PARTITION BY = overall/grand total calculation
+- ORDER BY inside OVER() = running/cumulative calculation
+- PARTITION BY + ORDER BY = running total per group (resets!)
+- GROUP BY collapses rows → Window functions do NOT!
+- Cannot use window functions in WHERE clause!
+- Window functions run in SELECT phase → after WHERE/GROUP BY
 
 ## ROW_NUMBER vs RANK vs DENSE_RANK
 - ROW_NUMBER → always unique, no ties handled
-- RANK → ties get same rank, next rank skipped
-- DENSE_RANK → ties get same rank, no gap ✅
+- RANK → ties get same rank, next rank SKIPPED (gap!)
+- DENSE_RANK → ties get same rank, NO gap ✅
+- Use DENSE_RANK for Nth highest salary!
+
+## PARTITION BY Rules
+- PARTITION BY alone → static group total (like GROUP BY but rows retained)
+- PARTITION BY + ORDER BY → running total per group (resets at boundary!)
+- No PARTITION BY + ORDER BY → running total across ALL rows (no reset!)
+- No PARTITION BY, No ORDER BY → grand total same for every row
+- Multiple columns → PARTITION BY col1, col2
 
 ## When to Use Window vs Aggregate
-- Need row + group data together → Window Function
-- Need only summary → GROUP BY
-- Rankings needed → Window Function
-- Running totals → Window Function
-- LAG/LEAD comparison → Window Function
+- Need row + group data together → Window Function ✅
+- Need only summary → GROUP BY ✅
+- Rankings needed → Window Function ✅
+- Running totals → Window Function ✅
+- LAG/LEAD comparison → Window Function ✅
+- ETL deduplication → ROW_NUMBER() ✅
 
 ## Files
 - `concepts.sql` - Theory and key patterns
-- `practice.sql` - Questions + Answers + Corrections
-
+- `practice.sql` - Questions + Datasets + Hints
+- `solutions.sql` - Solutions + Key points
+- `important_notes.sql` - Interview traps + Senior sentences
