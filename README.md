@@ -42,6 +42,8 @@ SQL-Portfolio/
 ├── 06_Business_Cases/
 └── README.md
 
+## SQL Cheat Sheet and Interview Recap LINK : https://drishtigarg001-data.github.io/SQL-Portfolio/sql-senior-cheatsheet.html 
+
 ##  Problem Solving Approach
 1. Understand the business requirement
 2. Identify edge cases (NULLs, duplicates, ties)
