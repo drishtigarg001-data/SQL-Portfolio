@@ -14,12 +14,12 @@
 | 7 | Execution Order | ✅ Complete |
 | 8 | Why Window not in WHERE | ✅ Complete |
 | 9 | Top-N per group | ✅ Complete |
-| 10 | Deduplication using window | ⏳ Pending |
-| 11 | First/Last per group | ⏳ Pending |
+| 10 | Deduplication using window | ✅ Complete |
+| 11 | First/Last per group | ✅ Complete |
 | 12 | LAG() | ⏳ Pending |
 | 13 | LEAD() | ⏳ Pending |
-| 14 | FIRST_VALUE() | ⏳ Pending |
-| 15 | LAST_VALUE() + Trap | ⏳ Pending |
+| 14 | FIRST_VALUE() | ✅ Complete |
+| 15 | LAST_VALUE() + Trap | ✅ Complete |
 | 16 | Running Total | ⏳ Pending |
 | 17 | Moving Average | ⏳ Pending |
 | 18 | Gaps & Islands | ⏳ Pending |
