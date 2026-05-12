@@ -65,6 +65,45 @@
 - LAG/LEAD comparison → Window Function ✅
 - ETL deduplication → ROW_NUMBER() ✅
 
+## Moving Average:
+→ ROWS BETWEEN N PRECEDING AND CURRENT ROW
+→ Fixed window slides forward!
+→ Different from running total!
+
+## ROWS vs RANGE:
+→ ROWS = physical rows (accurate!)
+→ RANGE = same value grouped (default, can surprise!)
+→ For accurate results → always use ROWS!
+
+## Gaps & Islands:
+→ Generate series → LEFT JOIN → find NULLs
+→ ROW_NUMBER trick for islands!
+
+## Change Detection:
+→ LAG + compare with current
+→ WHERE current != prev OR prev IS NULL
+
+## Sessionization:
+→ LAG for time gap
+→ CASE WHEN gap > threshold → new session flag
+→ Cumulative SUM of flags = session ID!
+
+## Window vs Subquery vs CTE:
+→ Window → best for row + group together
+→ CTE → complex multi-step
+→ Subquery → simple one-time
+
+## NTH_VALUE:
+→ Like LAST_VALUE → needs frame fix!
+→ Returns value at position N
+
+## PERCENT_RANK + CUME_DIST:
+→ Both return 0 to 1
+→ PERCENT_RANK → position based (first = 0)
+→ CUME_DIST → distribution based (first > 0)
+→ Use in CTE → filter in outer query!
+
+
 ## Files
 - `concepts.sql` - Theory and key patterns
 - `practice.sql` - Questions + Datasets + Hints
