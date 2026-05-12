@@ -16,12 +16,12 @@
 | 9 | Top-N per group | ✅ Complete |
 | 10 | Deduplication using window | ✅ Complete |
 | 11 | First/Last per group | ✅ Complete |
-| 12 | LAG() | ⏳ Pending |
-| 13 | LEAD() | ⏳ Pending |
+| 12 | LAG() | ✅ Complete |
+| 13 | LEAD() | ✅ Complete |
 | 14 | FIRST_VALUE() | ✅ Complete |
 | 15 | LAST_VALUE() + Trap | ✅ Complete |
-| 16 | Running Total | ⏳ Pending |
-| 17 | Moving Average | ⏳ Pending |
+| 16 | Running Total | ✅ Complete |
+| 17 | Moving Average | ✅ Complete |
 | 18 | Gaps & Islands | ⏳ Pending |
 
 ### 🟡 Important
