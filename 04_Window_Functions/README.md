@@ -71,18 +71,18 @@
 - Different from running total!
 
 ## Difference
-| Feature           | Running Total                     | Rolling Sum / Moving Sum    | Moving Average               | Cumulative Average                  |
-| ----------------- | --------------------------------- | --------------------------- | ---------------------------- | ----------------------------------- |
-| Main Idea         | Starting se current row tak total | Recent fixed rows ka total  | Recent fixed rows ka average | Starting se current row tak average |
-| Window Type       | Growing window                    | Fixed sliding window        | Fixed sliding window         | Growing window                      |
-| Rows Included     | All previous + current            | Only last N rows + current  | Only last N rows + current   | All previous + current              |
-| Common Frame      | `UNBOUNDED PRECEDING`             | `N PRECEDING`               | `N PRECEDING`                | `UNBOUNDED PRECEDING`               |
-| Function Used     | `SUM()`                           | `SUM()`                     | `AVG()`                      | `AVG()`                             |
-| Behavior          | Continuously grows                | Window slide hoti rehti hai | Window slide hoti rehti hai  | Average gradually changes           |
-| Best Use Case     | Cumulative sales                  | Last N days trend           | Trend smoothing              | Overall performance trend           |
-| Business Example  | Total revenue till today          | Last 7 days sales           | 7-day avg sales              | Avg sales till today                |
-| Focus             | Overall accumulation              | Recent activity             | Recent trend                 | Overall average                     |
-| Calculation Style | Cumulative                        | Rolling/Sliding             | Rolling/Sliding              | Cumulative                          |
+| Feature           | Running Total                      | Rolling Sum / Moving Sum    | Moving Average               | Cumulative Average                  |
+| ----------------- | ---------------------------------- | --------------------------- | ---------------------------- | ----------------------------------- |
+| Main Idea         | From starting to current row total | Total of Recent fixed rows  | Average of Recent fixed rows | From starting to current row average|
+| Window Type       | Growing window                     | Fixed sliding window        | Fixed sliding window         | Growing window                      |
+| Rows Included     | All previous + current             | Only last N rows + current  | Only last N rows + current   | All previous + current              |
+| Common Frame      | `UNBOUNDED PRECEDING`              | `N PRECEDING`               | `N PRECEDING`                | `UNBOUNDED PRECEDING`               |
+| Function Used     | `SUM()`                            | `SUM()`                     | `AVG()`                      | `AVG()`                             |
+| Behavior          | Continuously grows                 | Window will slide           | Window will slide            | Average gradually changes           |
+| Best Use Case     | Cumulative sales                   | Last N days trend           | Trend smoothing              | Overall performance trend           |
+| Business Example  | Total revenue till today           | Last 7 days sales           | 7-day avg sales              | Avg sales till today                |
+| Focus             | Overall accumulation               | Recent activity             | Recent trend                 | Overall average                     |
+| Calculation Style | Cumulative                         | Rolling/Sliding             | Rolling/Sliding              | Cumulative                          |
 
 
 ## ROWS vs RANGE:
