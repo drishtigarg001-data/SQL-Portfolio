@@ -90,30 +90,30 @@
 -  RANGE = same value grouped (default, can surprise!)
 -  For accurate results → always use ROWS!
   
--- RANGE (default):
+### RANGE (default):
 SUM(amount) OVER(ORDER BY sale_date)
--- Same date = same group!
--- Both rows get combined total
--- R1 row: 15000+20000+18000+12000 = 65000
--- R3 row: 15000+20000+18000+12000 = 65000
--- ← both same! 
+- Same date = same group!
+- Both rows get combined total
+-  R1 row: 15000+20000+18000+12000 = 65000
+-   R3 row: 15000+20000+18000+12000 = 65000
+-     both same! 
 
--- ROWS:
+### ROWS:
 SUM(amount) OVER(
   ORDER BY sale_date
   ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
 )
--- Each physical row separate!
--- R1 row: 15000+20000+18000 = 53000
--- R3 row: 15000+20000+18000+12000 = 65000
--- ← different! 
+- Each physical row separate!
+- R1 row: 15000+20000+18000 = 53000
+- R3 row: 15000+20000+18000+12000 = 65000
+- ← different! 
 
--- Common frames:
-ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW    -- default running total
-ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING  -- entire partition (LAST_VALUE fix!)
-ROWS BETWEEN 2 PRECEDING AND CURRENT ROW            -- last 3 rows (moving avg!)
-ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING            -- prev + current + next
-RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW   -- default (same value grouped!)
+### Common frames:
+- ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW    -- default running total
+- ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING  -- entire partition (LAST_VALUE fix!)
+- ROWS BETWEEN 2 PRECEDING AND CURRENT ROW            -- last 3 rows (moving avg!)
+- ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING            -- prev + current + next
+- RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW   -- default (same value grouped!)
 
 
 ## Gaps & Islands:
