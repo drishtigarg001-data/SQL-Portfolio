@@ -123,6 +123,12 @@ SUM(amount) OVER(
 ## Change Detection:
 - LAG + compare with current
 -  WHERE current != prev OR prev IS NULL
+-  Whenever you hear:
+-- changed
+-- transition
+-- switched
+-- moved from
+-- previous state
 
 ## Sessionization:
 - LAG for time gap
